@@ -18,6 +18,7 @@ public class AppGUI extends JLayeredPane {
 	private JPanel menuPanel = new JPanel();
 	private CardLayout card1 = new CardLayout();
 	private HomePageGUIClient home = new HomePageGUIClient();
+	private UserAccountGUI userAccount = new UserAccountGUI();
 	private UserLoginGUI login = new UserLoginGUI();
 	private ModifiedJButtonField signOutButton = new ModifiedJButtonField("SIGN OUT");
 	private ModifiedJButtonField homeButton = new ModifiedJButtonField("HOME");
@@ -66,6 +67,7 @@ public class AppGUI extends JLayeredPane {
 		panelBodyContainer.setLayout(card1);
 		panelBodyContainer.add(home, "1");
 		
+		panelBodyContainer.add(userAccount, "2");
 		
 		signOutButton.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent arg0){
