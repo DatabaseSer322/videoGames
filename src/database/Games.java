@@ -12,11 +12,22 @@ public class Games { //extends Object implements java.io.Serializable {
 	private static String FIELD_GENRE = "Genre";
 	private static String FIELD_RATING_AGE = "Rating_Age";
 	
+	private static String TABLE_NAME_ACCOUNT = "Account_Games";
+	private static String FIELD_UID = "Uid";
+	private static String FIELD_STATUS = "Status";
+	
 	private String gameID;
 	private String gameTitle;
 	private String gameRateStar;
 	private String gameGenre;
 	private String gameRatingAge;
+	
+	private String userID;
+	private String gameStatus;
+	
+	public Games(){
+		
+	}
 	
 	public Games(String title, String rate, String genre, String rating){
 		this.gameTitle = title;
@@ -35,6 +46,7 @@ public class Games { //extends Object implements java.io.Serializable {
 			System.err.println(e.getMessage());
 		}
 	}
+	
 	
 	public String getGameID() {
 		return gameID;
@@ -63,6 +75,14 @@ public class Games { //extends Object implements java.io.Serializable {
 	public void setGameRatingAge(String gameRatingAge) {
 		this.gameRatingAge = gameRatingAge;
 	}
+	public String getGameStatus() {
+		return gameStatus;
+	}
+
+	public void setGameStatus(String gameStatus) {
+		this.gameStatus = gameStatus;
+	}
+	
 	
 	public static ArrayList<Games> getAllGamesFromDatabase()
 	{
@@ -152,5 +172,66 @@ public class Games { //extends Object implements java.io.Serializable {
 		}
 		
 		return builder;
+	}
+	
+	public static ArrayList<Games> getUserGamesFromDatabase(String status, int userID)
+	{
+		ArrayList<Games> resultList = new ArrayList<Games>();
+		
+		String sql = "SELECT * FROM " + TABLE_NAME_ACCOUNT 
+				+ " WHERE " + FIELD_UID + " = " + userID 
+				+ " AND " + FIELD_STATUS + " = " + "\"" + status + "\""
+				+ " ORDER BY " + FIELD_UID + ", " + FIELD_STATUS;
+
+		ResultSet rs = Database.getResultSetFromSQL(sql);
+		
+		if (rs != null)
+		{
+			try
+			{
+				while (rs.next())
+				{
+					int gameId = rs.getInt(FIELD_GID);
+					Games games = getGamesFromDatabaseWithID(gameId);
+					resultList.add(games);
+				}
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		Database.close();
+		
+		return resultList;
+	}
+
+	public static Games getGamesFromDatabaseWithID(int id)
+	{
+		Games resultGame = new Games();
+		
+		String sql = "SELECT * FROM " + TABLE_NAME + " " 
+					+ " WHERE " + FIELD_GID + " = " + id;
+		ResultSet rs = Database.getResultSetFromSQL(sql);
+		
+		if (rs != null)
+		{
+			try
+			{
+				while (rs.next())
+				{
+					resultGame = new Games(rs);
+				}
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		Database.close();
+		
+		return resultGame;
 	}
 }

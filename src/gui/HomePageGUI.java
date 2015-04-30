@@ -30,6 +30,31 @@ public class HomePageGUI extends JPanel {
 	protected ModifiedJTable table_1;
 	protected ModifiedJTable table_2;
 	protected ModifiedJTable table_3;
+
+	private String setTitle = "Title";
+	private String setStarRate = "Star Rate";
+	private String setGenre = "Genre";
+	private String setRating = "Rating";
+	
+	public String getTitle() {
+		return setTitle;
+	}
+	public String getStarRate() {
+		return setStarRate;
+	}
+	public String getGenre() {
+		return setGenre;
+	}
+	public String getRating() {
+		return setRating;
+	}
+	
+	public void resetFields(){
+		txtTitle.setText(setTitle);
+		txtStarRate.setText(setStarRate);
+		txtGenre.setText(setGenre);
+		txtRating.setText(setRating);
+	}
 	
 	/*
 	 * HomePageGUI() sets the layout of the home page after logging in
@@ -42,23 +67,23 @@ public class HomePageGUI extends JPanel {
 		
 		txtTitle.setBounds(134, 64, 225, 31);
 		add(txtTitle);
-		txtTitle.setText("Title");
-		txtTitle.addFocusListener(new ModifiedFocusAdapter(txtTitle, "Title"));
+		txtTitle.setText(setTitle);
+		txtTitle.addFocusListener(new ModifiedFocusAdapter(txtTitle, setTitle));
 
 		txtStarRate.setBounds(134, 103, 225, 31);
 		add(txtStarRate);
-		txtStarRate.setText("Star Rate");
-		txtStarRate.addFocusListener(new ModifiedFocusAdapter(txtStarRate, "Star Rate"));
+		txtStarRate.setText(setStarRate);
+		txtStarRate.addFocusListener(new ModifiedFocusAdapter(txtStarRate, setStarRate));
 
 		txtGenre.setBounds(134, 142, 225, 31);
 		add(txtGenre);
-		txtGenre.setText("Genre");
-		txtGenre.addFocusListener(new ModifiedFocusAdapter(txtGenre, "Genre"));
+		txtGenre.setText(setGenre);
+		txtGenre.addFocusListener(new ModifiedFocusAdapter(txtGenre, setGenre));
 		
 		txtRating.setBounds(134, 181, 225, 31);
 		add(txtRating);
-		txtRating.setText("Rating");
-		txtRating.addFocusListener(new ModifiedFocusAdapter(txtRating, "Rating"));
+		txtRating.setText(setRating);
+		txtRating.addFocusListener(new ModifiedFocusAdapter(txtRating, setRating));
 		
 		submitSearchButton.setBounds(184, 230, 125, 28);
 		add(submitSearchButton);

@@ -22,17 +22,20 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("submitSearchButton")){
 			System.out.println("You clicked the search button");
+			
 			populateSearchedGames();
+			resetFields();
+			
 		}
 		
 		if (e.getActionCommand().equals("seeDetailsButton_1")){
 			System.out.println("You clicked the details 1 button");
-			//loadSelectedPlayer(); //BrowseLocalPlayersClient
+			
 		}
 		
 		if (e.getActionCommand().equals("seeDetailsButton_2")){
 			System.out.println("You clicked the details 2 button");
-			//loadSelectedPlayer(); //BrowseLocalPlayersClient
+			
 		}
 	}
 	

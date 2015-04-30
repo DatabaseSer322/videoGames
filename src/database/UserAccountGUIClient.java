@@ -38,10 +38,8 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		
 		if (e.getActionCommand().equals("seeWishListButton")){
 			System.out.println("You clicked see wish list button");
-		}
-		
-		if (e.getActionCommand().equals("seeWishListButton")){
-			System.out.println("You clicked see wish list button");
+			
+			populateUserWishList();
 		}
 		
 		if (e.getActionCommand().equals("seeCurrentListButton")){
@@ -52,17 +50,39 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 	
 	public void populateAllGames(){
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-				"Title", "Star Rate", "Genre", "Rating"	}, 0);
+				"Gid", "Title", "Star Rate", "Genre", "Rating"	}, 0);
 		
 		ArrayList<Games> gamesList = Games.getAllGamesFromDatabase();
 		
 		for (Games g : gamesList)
 		{
-			Object[] row = { g.getGameTitle(), g.getGameRateStar(), 
+			Object[] row = { g.getGameID(), g.getGameTitle(), g.getGameRateStar(), 
 							g.getGameGenre(), g.getGameRatingAge() };
 			newTable.addRow(row);
 		}
 		
 		table_2.setModel(newTable);
+		table_2.removeColumn(table_2.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+	}
+	
+	public void populateUserWishList(){
+		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
+				"Title", "Star Rate", "Genre", "Rating" }, 0);
+		
+		if(User.getCurrentUser() != null){
+			User currentlyLoggedInUser = User.getCurrentUser();
+			int loggedInUserID = currentlyLoggedInUser.getUserId();
+			
+			ArrayList<Games> gamesList = Games.getUserGamesFromDatabase("Wish", loggedInUserID);
+			
+			for (Games g : gamesList)
+			{
+				Object[] row = { g.getGameTitle(), g.getGameRateStar(), 
+								g.getGameGenre(), g.getGameRatingAge() };
+				newTable.addRow(row);
+			}
+			
+			table_1.setModel(newTable);
+		}
 	}
 }

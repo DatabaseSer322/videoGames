@@ -53,9 +53,10 @@ public class Database {
 			Class.forName("org.sqlite.JDBC"); // Register JDBC driver
 			connection = DriverManager.getConnection(DB_LOCATION);
 			statement = connection.createStatement();
-			rs = statement.executeQuery(sql); 	
-				
+			rs = statement.executeQuery(sql);
+		
 		} catch (SQLException se) {
+			System.err.println(se.getMessage());
 			System.out.println("Unable to connect to database");
 		} catch (Exception e) {
 			System.out.println("Driver issues");
@@ -105,9 +106,6 @@ public class Database {
 				System.err.println(e.getMessage());
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
-			} finally{
-				try { statement.close(); } catch (SQLException e) { /*ignored*/}
-				try { connection.close(); } catch (SQLException e) { /*ignored*/}
 			}
 		}
 		
