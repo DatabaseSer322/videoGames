@@ -11,15 +11,42 @@ import gui.UserAccountGUI;
 public class UserAccountGUIClient extends UserAccountGUI implements ActionListener {
 	
 	public UserAccountGUIClient(){
-		submitSearchButton.addActionListener(this);
-		addGameButton.addActionListener(this);
+		searchButton.addActionListener(this);
+		addToWishListButton.addActionListener(this);
+		addToCurrentListButton.addActionListener(this);
+		seeWishListButton.addActionListener(this);
+		seeCurrentListButton.addActionListener(this);
 		
 		populateAllGames();
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("searchButton")){
+			System.out.println("You clicked the search button");
+			
+		}
 		
+		if (e.getActionCommand().equals("addToWishListButton")){
+			System.out.println("You clicked add to wish list button");
+			
+		}
+		
+		if (e.getActionCommand().equals("addToCurrentListButton")){
+			System.out.println("You clicked add to current list button");
+		}
+		
+		if (e.getActionCommand().equals("seeWishListButton")){
+			System.out.println("You clicked see wish list button");
+		}
+		
+		if (e.getActionCommand().equals("seeWishListButton")){
+			System.out.println("You clicked see wish list button");
+		}
+		
+		if (e.getActionCommand().equals("seeCurrentListButton")){
+			System.out.println("You clicked see current list button");
+		}
 		
 	}
 	

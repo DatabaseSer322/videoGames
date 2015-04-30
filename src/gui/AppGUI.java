@@ -12,13 +12,14 @@ import java.awt.Font;
 
 import database.Database;
 import database.HomePageGUIClient;
+import database.UserAccountGUIClient;
 
 public class AppGUI extends JLayeredPane {
 	private JPanel panelBodyContainer = new JPanel();
 	private JPanel menuPanel = new JPanel();
 	private CardLayout card1 = new CardLayout();
 	private HomePageGUIClient home = new HomePageGUIClient();
-	private UserAccountGUI userAccount = new UserAccountGUI();
+	private UserAccountGUIClient userAccount = new UserAccountGUIClient();
 	private UserLoginGUI login = new UserLoginGUI();
 	private ModifiedJButtonField signOutButton = new ModifiedJButtonField("SIGN OUT");
 	private ModifiedJButtonField homeButton = new ModifiedJButtonField("HOME");
@@ -66,7 +67,6 @@ public class AppGUI extends JLayeredPane {
 		add(panelBodyContainer);
 		panelBodyContainer.setLayout(card1);
 		panelBodyContainer.add(home, "1");
-		
 		panelBodyContainer.add(userAccount, "2");
 		
 		signOutButton.addActionListener(new ActionListener(){

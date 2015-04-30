@@ -16,8 +16,11 @@ public class UserAccountGUI extends JPanel {
 	protected ModifiedJTextField txtStarRate = new ModifiedJTextField();
 	protected ModifiedJTextField txtGenre = new ModifiedJTextField();
 	protected ModifiedJTextField txtRating = new ModifiedJTextField();
-	protected ModifiedJButtonField submitSearchButton = new ModifiedJButtonField("Search");
-	protected ModifiedJButtonField addGameButton = new ModifiedJButtonField("Add Game");
+	protected ModifiedJButtonField searchButton = new ModifiedJButtonField("Search");
+	protected ModifiedJButtonField addToWishListButton = new ModifiedJButtonField("Add to wish list");
+	protected ModifiedJButtonField addToCurrentListButton = new ModifiedJButtonField("Set as current game");
+	protected ModifiedJButtonField seeWishListButton = new ModifiedJButtonField("See wish list");
+	protected ModifiedJButtonField seeCurrentListButton = new ModifiedJButtonField("See current list");
 	protected ModifiedJTable table_1;
 	protected ModifiedJTable table_2;
 	
@@ -46,13 +49,25 @@ public class UserAccountGUI extends JPanel {
 		txtRating.setText("Rating");
 		txtRating.addFocusListener(new ModifiedFocusAdapter(txtRating, "Rating"));
 		
-		submitSearchButton.setBounds(184, 230, 125, 28);
-		add(submitSearchButton);
-		submitSearchButton.setActionCommand("submitSearchButton");
+		searchButton.setBounds(184, 230, 125, 28);
+		add(searchButton);
+		searchButton.setActionCommand("searchButton");
 		
-		addGameButton.setBounds(461, 469, 125, 28);
-		add(addGameButton);
-		addGameButton.setActionCommand("addGameButton");
+		addToWishListButton.setBounds(92, 508, 125, 28);
+		add(addToWishListButton);
+		addToWishListButton.setActionCommand("addToWishListButton");
+		
+		addToCurrentListButton.setBounds(262, 508, 145, 28);
+		add(addToCurrentListButton);
+		addToCurrentListButton.setActionCommand("addToCurrentListButton");
+		
+		seeWishListButton.setBounds(603, 367, 145, 28);
+		add(seeWishListButton);
+		seeWishListButton.setActionCommand("seeWishListButton");
+		
+		seeCurrentListButton.setBounds(799, 367, 145, 28);
+		add(seeCurrentListButton);
+		seeCurrentListButton.setActionCommand("seeCurrentListButton");
 		
 		
 		ModifiedJScrollPane scrollPane_1 = new ModifiedJScrollPane();

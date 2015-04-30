@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import gui.HomePageGUI;
@@ -87,18 +88,20 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 	}
 	
 	public void populateAllGames(){
+		//Gid is added behind the scenes
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-				"Title", "Star Rate", "Genre", "Rating"	}, 0);
+				"Gid", "Title", "Star Rate", "Genre", "Rating"	}, 0);
 		
 		ArrayList<Games> gamesList = Games.getAllGamesFromDatabase();
 		
 		for (Games g : gamesList)
 		{
-			Object[] row = { g.getGameTitle(), g.getGameRateStar(), 
+			Object[] row = { g.getGameID(), g.getGameTitle(), g.getGameRateStar(), 
 							g.getGameGenre(), g.getGameRatingAge() };
 			newTable.addRow(row);
 		}
 		
 		table_3.setModel(newTable);
+		table_3.removeColumn(table_3.getColumnModel().getColumn(0)); //Gid column is removed but not gone
 	}
 }
