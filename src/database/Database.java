@@ -37,7 +37,7 @@ public class Database {
 			}
 		} catch (SQLException e) {
 			//e.printStackTrace();
-			System.err.println(e.getMessage());
+			//System.err.println(e.getMessage());
 		}
 	}
 	

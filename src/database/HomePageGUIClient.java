@@ -21,7 +21,7 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("submitSearchButton")){
-			System.out.println("You clicked the search button");
+			//System.out.println("You clicked the search button");
 			
 			populateSearchedGames();
 			resetFields();

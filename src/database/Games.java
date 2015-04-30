@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Games { //extends Object implements java.io.Serializable {
+public class Games { 
 	private static String TABLE_NAME = "Games";
 	private static String FIELD_GID = "Gid";
 	private static String FIELD_TITLE = "Title";
@@ -22,7 +22,6 @@ public class Games { //extends Object implements java.io.Serializable {
 	private String gameGenre;
 	private String gameRatingAge;
 	
-	private String userID;
 	private String gameStatus;
 	
 	public Games(){
@@ -38,6 +37,7 @@ public class Games { //extends Object implements java.io.Serializable {
 	
 	public Games(ResultSet rs){
 		try{
+			this.gameID = rs.getString("Gid");
 			this.gameTitle = rs.getString("Title");
 			this.gameRateStar = rs.getString("Rate_Star");
 			this.gameGenre = rs.getString("Genre");
@@ -233,5 +233,11 @@ public class Games { //extends Object implements java.io.Serializable {
 		Database.close();
 		
 		return resultGame;
+	}
+	
+	public void deleteGameFromList(int gid, int uid){
+		Database.executeSQL("DELETE FROM " + TABLE_NAME_ACCOUNT 
+				+ " WHERE " + FIELD_GID + " = "	+ gid 
+				+ " AND " + FIELD_UID + " = " + uid + ";");
 	}
 }

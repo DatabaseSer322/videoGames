@@ -19,6 +19,8 @@ public class UserAccountGUI extends JPanel {
 	protected ModifiedJButtonField searchButton = new ModifiedJButtonField("Search");
 	protected ModifiedJButtonField addToWishListButton = new ModifiedJButtonField("Add to wish list");
 	protected ModifiedJButtonField addToCurrentListButton = new ModifiedJButtonField("Set as current game");
+	protected ModifiedJButtonField updateToCurrentListButton = new ModifiedJButtonField("Switch to current list");
+	protected ModifiedJButtonField deleteFromListButton = new ModifiedJButtonField("Delete from list");
 	protected ModifiedJButtonField seeWishListButton = new ModifiedJButtonField("See wish list");
 	protected ModifiedJButtonField seeCurrentListButton = new ModifiedJButtonField("See current list");
 	protected ModifiedJTable table_1;
@@ -61,17 +63,24 @@ public class UserAccountGUI extends JPanel {
 		add(addToCurrentListButton);
 		addToCurrentListButton.setActionCommand("addToCurrentListButton");
 		
-		seeWishListButton.setBounds(603, 367, 145, 28);
+		seeWishListButton.setBounds(580, 87, 145, 28);
 		add(seeWishListButton);
 		seeWishListButton.setActionCommand("seeWishListButton");
 		
-		seeCurrentListButton.setBounds(799, 367, 145, 28);
+		seeCurrentListButton.setBounds(772, 87, 145, 28);
 		add(seeCurrentListButton);
 		seeCurrentListButton.setActionCommand("seeCurrentListButton");
 		
+		updateToCurrentListButton.setBounds(569, 487, 178, 28);
+		add(updateToCurrentListButton);
+		updateToCurrentListButton.setActionCommand("updateToCurrentListButton");
+		
+		deleteFromListButton.setBounds(797, 487, 145, 28);
+		add(deleteFromListButton);
+		deleteFromListButton.setActionCommand("deleteFromListButton");
 		
 		ModifiedJScrollPane scrollPane_1 = new ModifiedJScrollPane();
-		scrollPane_1.setBounds(538, 126, 430, 214);
+		scrollPane_1.setBounds(538, 126, 430, 350);
 		add(scrollPane_1);
 		table_1 = new ModifiedJTable(new DefaultTableModel(null, new Object[] {"Title", "Star Rate", "Genre", "Rating"}));
 		scrollPane_1.setViewportView(table_1);
