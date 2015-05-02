@@ -14,6 +14,7 @@ import org.sqlite.SQLiteConnection;
 
 public class Database {
 
+	//private members
 	private final static String TABLE_NAME = "User_Account";
 	private final static String DB_LOCATION = "jdbc:sqlite:C:/Users/klicata/workspace/VideoGames/sql/VideoGameDatabase";
 	private static Connection connection = null;
@@ -36,7 +37,6 @@ public class Database {
 				connection.close();
 			}
 		} catch (SQLException e) {
-			//e.printStackTrace();
 			//System.err.println(e.getMessage());
 		}
 	}

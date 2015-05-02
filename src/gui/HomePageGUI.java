@@ -8,12 +8,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import java.awt.Color;
+import java.awt.Font;
 
+import database.User;
 
 public class HomePageGUI extends JPanel {
 	
@@ -30,11 +33,17 @@ public class HomePageGUI extends JPanel {
 	protected ModifiedJTable table_1;
 	protected ModifiedJTable table_2;
 	protected ModifiedJTable table_3;
-
+	
 	private String setTitle = "Title";
 	private String setStarRate = "Star Rate";
 	private String setGenre = "Genre";
 	private String setRating = "Rating";
+	
+	private final Font font = new Font("Elephant", Font.PLAIN, 14);
+	JLabel titleLabel = new JLabel(setTitle + ":");
+	JLabel starRateLabel = new JLabel(setStarRate + ":");
+	JLabel genreLabel = new JLabel(setGenre + ":");
+	JLabel ratingLabel = new JLabel(setRating + ":");
 	
 	public String getTitle() {
 		return setTitle;
@@ -64,6 +73,32 @@ public class HomePageGUI extends JPanel {
 		setPreferredSize(new Dimension(1000, 650));
 		setBackground(new Color(105,105,105));
 		setLayout(null);
+
+		/*
+		titleLabel.setFont(font);
+		titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		titleLabel.setForeground(new Color(173,216,230));
+		titleLabel.setBounds(45, 65, 79, 28);
+		add(titleLabel);
+		
+		starRateLabel.setFont(font);
+		starRateLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		starRateLabel.setForeground(new Color(173,216,230));
+		starRateLabel.setBounds(45, 104, 79, 28);
+		add(starRateLabel);
+		
+		genreLabel.setFont(font);
+		genreLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		genreLabel.setForeground(new Color(173,216,230));
+		genreLabel.setBounds(45, 143, 79, 28);
+		add(genreLabel);
+		
+		ratingLabel.setFont(font);
+		ratingLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		ratingLabel.setForeground(new Color(173,216,230));
+		ratingLabel.setBounds(45, 182, 79, 28);
+		add(ratingLabel);
+		*/
 		
 		txtTitle.setBounds(134, 64, 225, 31);
 		add(txtTitle);
@@ -103,13 +138,11 @@ public class HomePageGUI extends JPanel {
 		table_1 = new ModifiedJTable(new DefaultTableModel(null, new Object[] {"Title", "Star Rate", "Genre", "Rating"}));
 		scrollPane_1.setViewportView(table_1);
 		
-		
 		ModifiedJScrollPane scrollPane_2 = new ModifiedJScrollPane();
 		scrollPane_2.setBounds(538, 280, 430, 97);
 		add(scrollPane_2);
 		table_2 = new ModifiedJTable(new DefaultTableModel(null, new Object[] {"Title", "Star Rate", "Genre", "Rating" }));
 		scrollPane_2.setViewportView(table_2);
-		
 		
 		ModifiedJScrollPane scrollPane_3 = new ModifiedJScrollPane();
 		scrollPane_3.setBounds(45, 289, 406, 208);

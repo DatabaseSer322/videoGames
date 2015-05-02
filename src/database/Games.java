@@ -240,4 +240,10 @@ public class Games {
 				+ " WHERE " + FIELD_GID + " = "	+ gid 
 				+ " AND " + FIELD_UID + " = " + uid + ";");
 	}
+	
+	public void addGameFromList(int gid, int uid, String status){
+		Database.executeSQL("INSERT INTO " + TABLE_NAME_ACCOUNT 
+				+ "(" + FIELD_GID + ", " + FIELD_UID + ", " + FIELD_STATUS
+				+ ") VALUES (" + gid + ", "+ uid + ", \"" + status + "\");");
+	}
 }
