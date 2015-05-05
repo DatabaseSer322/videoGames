@@ -77,6 +77,8 @@ public class AppGUI extends JLayeredPane {
         		if(result == JOptionPane.YES_OPTION){
         			MainGUI.setApplicationToClose();
         			MainGUI.showLoginGUI();
+        			HomePageGUIClient.clearAllFieldsInHomePage();
+        			UserAccountGUIClient.clearAllFieldsInUserAccountPage();
         		}
     		}
     	});

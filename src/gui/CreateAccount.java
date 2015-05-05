@@ -144,6 +144,7 @@ public class CreateAccount extends JPanel {
 			System.out.println("Issue in CreateAccount, isUniqueUser");
 		}
 		
+		Database.close();		
 		return isUnique;
 	}
 }

@@ -12,6 +12,9 @@ import gui.HomePageGUI;
 
 public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 
+	//member
+	int currentSelectedRow;
+	
 	/*
 	 * HomePageGUIClient() constructor adds action listeners to the buttons
 	 * 		and automatically populates all games in from the database to 
@@ -23,6 +26,7 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		seeDetailsButton_2.addActionListener(this);
 		
 		populateAllGames();
+		Database.close();
 	}
 
 	/*
@@ -44,54 +48,25 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		if (e.getActionCommand().equals("seeDetailsButton_1")){
 			//System.out.println("You clicked the details 1 button");
 			
-			DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-					"ID", "Title", "Stars", "Genre", "Rating"	}, 0);
-			
-			int currentSelectedRow = table_3.getSelectedRow();
+			currentSelectedRow = table_3.getSelectedRow();
 			if (currentSelectedRow >= 0){
-				String idToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 0);
-				String titleToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 1);
-				String rateToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 2);
-				String genreToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 3);
-				String ratingToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 4);
-				
-				Object[] row = { idToCompare, titleToCompare, rateToCompare, genreToCompare, ratingToCompare };
-				newTable.addRow(row);
-				table_1.setModel(newTable);
-				table_1.removeColumn(table_1.getColumnModel().getColumn(0)); //Gid column is removed but not gone
-				table_1.getColumnModel().getColumn(0).setPreferredWidth(200);
-				table_1.getColumnModel().getColumn(2).setPreferredWidth(100);
-				table_1.getColumnModel().getColumn(3).setPreferredWidth(75);
-				
+			
+				compareToTable2(currentSelectedRow);
 			} else {
 				JOptionPane.showMessageDialog(null,
 						"Please select a row in which you would like to compare",
 						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
 			}
+			
 		}
 		
 		if (e.getActionCommand().equals("seeDetailsButton_2")){
 			//System.out.println("You clicked the details 2 button");
 			
-			DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-					"ID", "Title", "Stars", "Genre", "Rating"	}, 0);
-			
-			int currentSelectedRow = table_3.getSelectedRow();
+			currentSelectedRow = table_3.getSelectedRow();
 			if (currentSelectedRow >= 0){
-				String idToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 0);
-				String titleToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 1);
-				String rateToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 2);
-				String genreToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 3);
-				String ratingToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 4);
-				
-				Object[] row = { idToCompare, titleToCompare, rateToCompare, genreToCompare, ratingToCompare };
-				newTable.addRow(row);
-				table_2.setModel(newTable);
-				table_2.removeColumn(table_2.getColumnModel().getColumn(0)); //Gid column is removed but not gone
-				table_2.getColumnModel().getColumn(0).setPreferredWidth(200);
-				table_2.getColumnModel().getColumn(2).setPreferredWidth(100);
-				table_2.getColumnModel().getColumn(3).setPreferredWidth(75);
-				
+			
+				compareToTable1(currentSelectedRow);
 			} else {
 				JOptionPane.showMessageDialog(null,
 						"Please select a row in which you would like to compare",
@@ -99,6 +74,7 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 			}
 		}
 	}
+
 	
 	/*
 	 * populateSearchedGames() displays the games that the user is searching for
@@ -170,5 +146,75 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		table_3.getColumnModel().getColumn(0).setPreferredWidth(200);
 		table_3.getColumnModel().getColumn(2).setPreferredWidth(100);
 		table_3.getColumnModel().getColumn(3).setPreferredWidth(75);
+	}
+	
+	/*
+	 * compareToTable1(int currSelRow) takes in the row number selected by the user
+	 * 		and gets all the information to display in the comparison table
+	 */
+	public void compareToTable1(int currSelRow){
+		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
+				"Gid", "Title", "Stars", "Genre", "Rating"	}, 0);
+
+		String idToCompare = (String) table_3.getModel().getValueAt(currSelRow, 0);
+		String titleToCompare = (String) table_3.getModel().getValueAt(currSelRow, 1);
+		String rateToCompare = (String) table_3.getModel().getValueAt(currSelRow, 2);
+		String genreToCompare = (String) table_3.getModel().getValueAt(currSelRow, 3);
+		String ratingToCompare = (String) table_3.getModel().getValueAt(currSelRow, 4);
+		
+		Object[] row = { idToCompare, titleToCompare, rateToCompare, genreToCompare, ratingToCompare };
+		newTable.addRow(row);
+		table_2.setModel(newTable);
+		table_2.removeColumn(table_2.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+		table_2.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table_2.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_2.getColumnModel().getColumn(3).setPreferredWidth(75);
+	}
+	
+	/*
+	 * compareToTable2(int currSelRow) takes in the row number selected by the user
+	 * 		and gets all the information to display in the comparison table
+	 */
+	public void compareToTable2(int currSelRow){
+		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
+				"Gid", "Title", "Stars", "Genre", "Rating"	}, 0);
+		
+		String idToCompare = (String) table_3.getModel().getValueAt(currSelRow, 0);
+		String titleToCompare = (String) table_3.getModel().getValueAt(currSelRow, 1);
+		String rateToCompare = (String) table_3.getModel().getValueAt(currSelRow, 2);
+		String genreToCompare = (String) table_3.getModel().getValueAt(currSelRow, 3);
+		String ratingToCompare = (String) table_3.getModel().getValueAt(currSelRow, 4);
+		
+		Object[] row = { idToCompare, titleToCompare, rateToCompare, genreToCompare, ratingToCompare };
+		newTable.addRow(row);
+		table_1.setModel(newTable);
+		table_1.removeColumn(table_1.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_1.getColumnModel().getColumn(3).setPreferredWidth(75);
+	}
+	
+/*
+ *  clearAllFieldsInHomePage() allows for the fields to be empty when the
+ * 		current user logs out and a new user logs in
+ */
+	public static void clearAllFieldsInHomePage(){
+		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
+				"Gid", "Title", "Stars", "Genre", "Rating"	}, 0);
+		
+		Object[] row = { null, null, null, null, null };
+		newTable.addRow(row);
+		table_1.setModel(newTable);
+		table_1.removeColumn(table_1.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_1.getColumnModel().getColumn(3).setPreferredWidth(75);
+		
+		newTable.addRow(row);
+		table_2.setModel(newTable);
+		table_2.removeColumn(table_2.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+		table_2.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table_2.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_2.getColumnModel().getColumn(3).setPreferredWidth(75);
 	}
 }

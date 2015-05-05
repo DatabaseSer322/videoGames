@@ -23,8 +23,8 @@ public class UserAccountGUI extends JPanel {
 	protected ModifiedJButtonField deleteFromListButton = new ModifiedJButtonField("Delete from list");
 	protected ModifiedJButtonField seeWishListButton = new ModifiedJButtonField("See wish list");
 	protected ModifiedJButtonField seeCurrentListButton = new ModifiedJButtonField("See current list");
-	protected ModifiedJTable table_1;
-	protected ModifiedJTable table_2;
+	protected static ModifiedJTable table_1;
+	protected static ModifiedJTable table_2;
 	
 	/*
 	 * UserAccountGUI() sets the layout of the User Account page when clicked on

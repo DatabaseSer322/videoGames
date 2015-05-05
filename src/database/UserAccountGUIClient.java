@@ -28,6 +28,7 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		deleteFromListButton.addActionListener(this);
 		
 		populateAllGames();
+		Database.close();
 	}
 
 	/*
@@ -52,55 +53,14 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		if (e.getActionCommand().equals("addToWishListButton")){
 			//System.out.println("You clicked add to wish list button");
 			
-			String status = "Wish";
-			int currentSelectedRow = table_2.getSelectedRow();
-			if (currentSelectedRow >= 0){
-				try{
-					int currentUserId = User.getCurrentUser().getUserId();
-					String gidString = (String) table_2.getModel().getValueAt(currentSelectedRow, 0);
-					int gid = Integer.parseInt(gidString);
-					
-					Games selectedGame = new Games();
-					selectedGame.addGameFromList(gid,currentUserId, status);
-					
-					populateUserList("Wish");
-				} catch (RuntimeException ex) {
-					throw ex;
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Please select a row in which you would like to add",
-						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
-			}
+			addToList("Wish");
+			
 		}
 		
 		if (e.getActionCommand().equals("addToCurrentListButton")){
 			//System.out.println("You clicked add to current list button");
 			
-			String status = "Current";
-			int currentSelectedRow = table_2.getSelectedRow();
-			if (currentSelectedRow >= 0){
-				try{
-					int currentUserId = User.getCurrentUser().getUserId();
-					String gidString = (String) table_2.getModel().getValueAt(currentSelectedRow, 0);
-					int gid = Integer.parseInt(gidString);
-					
-					Games selectedGame = new Games();
-					selectedGame.addGameFromList(gid,currentUserId, status);
-					
-					populateUserList("Current");
-				} catch (RuntimeException ex) {
-					throw ex;
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Please select a row in which you would like to add",
-						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
-			}
+			addToList("Current");
 		}
 		
 		if (e.getActionCommand().equals("seeWishListButton")){
@@ -118,65 +78,13 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		if (e.getActionCommand().equals("updateToCurrentListButton")){
 			//System.out.println("You clicked update to current list button");
 			
-			String status = "Current";
-			int currentSelectedRow = table_1.getSelectedRow();
-			if (currentSelectedRow >= 0){
-				try{
-					int currentUserId = User.getCurrentUser().getUserId();
-					String gidString = (String) table_1.getModel().getValueAt(currentSelectedRow, 0);
-					int gid = Integer.parseInt(gidString);
-					
-					Games selectedGame = new Games();
-					selectedGame.deleteGameFromList(gid,currentUserId);
-					selectedGame.addGameFromList(gid, currentUserId, status);
-					
-					populateUserList("Wish");
-				} catch (RuntimeException ex) {
-					throw ex;
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Please select a row in which you would like to update",
-						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
-			}
+			updateToCurrent();
 		}
 		
 		if (e.getActionCommand().equals("deleteFromListButton")){
 			//System.out.println("You clicked delete from list button");
 			
-			int currentSelectedRow = table_1.getSelectedRow();
-			if (currentSelectedRow >= 0){
-				/*
-				 * Displays warning window asking the user if they would like to follow
-				 * through with deleting the selected game from their list.
-				 */
-				int result = JOptionPane.showConfirmDialog(
-								null, "Are you sure you want to delete the highlighted game from your list?",
-								null, JOptionPane.YES_NO_OPTION);
-				
-				if (result == JOptionPane.YES_OPTION){
-					try{
-						int currentUserId = User.getCurrentUser().getUserId();
-						String gidString = (String) table_1.getModel().getValueAt(currentSelectedRow, 0);
-						int gid = Integer.parseInt(gidString);
-						
-						Games selectedGame = new Games();
-						selectedGame.deleteGameFromList(gid,currentUserId);
-
-						populateUserList("Wish");
-					} catch (RuntimeException ex) {
-						throw ex;
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Please select a row in which you would like to delete",
-						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
-			}
+			deleteFromList();
 		}
 	}
 	
@@ -278,5 +186,120 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		}
 		
 		return result;
+	}
+	
+	/*
+	 * addToWishList(String status) takes in the row highlighted and
+	 * 		the status to add to the database then re-populate table
+	 */
+	public void addToList(String status){
+		int currentSelectedRow = table_2.getSelectedRow();
+		if (currentSelectedRow >= 0){
+			try{
+				
+				int currentUserId = User.getCurrentUser().getUserId();
+				String gidString = (String) table_2.getModel().getValueAt(currentSelectedRow, 0);
+				int gid = Integer.parseInt(gidString);
+				
+				Games selectedGame = new Games();
+				selectedGame.addGameFromList(gid,currentUserId, status);
+				
+				populateUserList("Wish");
+			} catch (RuntimeException ex) {
+				throw ex;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Please select a row in which you would like to add",
+					"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/*
+	 * updateToCurrent() takes in the row highlighted in the wish list and
+	 * 		add to the database as current then re-populate table
+	 */
+	public void updateToCurrent(){
+		String status = "Current";
+		int currentSelectedRow = table_1.getSelectedRow();
+		if (currentSelectedRow >= 0){
+			try{
+				int currentUserId = User.getCurrentUser().getUserId();
+				String gidString = (String) table_1.getModel().getValueAt(currentSelectedRow, 0);
+				int gid = Integer.parseInt(gidString);
+				
+				Games selectedGame = new Games();
+				selectedGame.deleteGameFromList(gid,currentUserId);
+				selectedGame.addGameFromList(gid, currentUserId, status);
+				
+				populateUserList("Wish");
+			} catch (RuntimeException ex) {
+				throw ex;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Please select a row in which you would like to update",
+					"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/*
+	 * deleteFromList() allows the user to delete any game they highlight
+	 * 		 from either list
+	 */
+	public void deleteFromList(){
+		int currentSelectedRow = table_1.getSelectedRow();
+		if (currentSelectedRow >= 0){
+			/*
+			 * Displays warning window asking the user if they would like to follow
+			 * through with deleting the selected game from their list.
+			 */
+			int result = JOptionPane.showConfirmDialog(
+							null, "Are you sure you want to delete the highlighted game from your list?",
+							null, JOptionPane.YES_NO_OPTION);
+			
+			if (result == JOptionPane.YES_OPTION){
+				try{
+					int currentUserId = User.getCurrentUser().getUserId();
+					String gidString = (String) table_1.getModel().getValueAt(currentSelectedRow, 0);
+					int gid = Integer.parseInt(gidString);
+					
+					Games selectedGame = new Games();
+					selectedGame.deleteGameFromList(gid,currentUserId);
+
+					populateUserList("Wish");
+				} catch (RuntimeException ex) {
+					throw ex;
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Please select a row in which you would like to delete",
+					"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/*
+	 * clearAllFieldsInUserAccountPage() allows for the fields to be empty when the
+	 * 		current user logs out and a new user logs in
+	 */
+	public static void clearAllFieldsInUserAccountPage(){
+		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
+				"Gid", "Title", "Stars", "Genre", "Rating"	}, 0);
+		
+		Object[] row = { null, null, null, null, null };
+		newTable.addRow(row);
+		table_1.setModel(newTable);
+		table_1.removeColumn(table_1.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_1.getColumnModel().getColumn(3).setPreferredWidth(75);
+		
 	}
 }

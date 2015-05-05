@@ -31,9 +31,9 @@ public class HomePageGUI extends JPanel {
 	protected ModifiedJButtonField submitSearchButton = new ModifiedJButtonField("Search");
 	protected ModifiedJButtonField seeDetailsButton_1 = new ModifiedJButtonField("Compare Game 1");
 	protected ModifiedJButtonField seeDetailsButton_2 = new ModifiedJButtonField("Compare Game 2");
-	protected ModifiedJTable table_1;
-	protected ModifiedJTable table_2;
-	protected ModifiedJTable table_3;
+	protected static ModifiedJTable table_1;
+	protected static ModifiedJTable table_2;
+	protected static ModifiedJTable table_3;
 	
 	private String setTitle = "Title";
 	private String setStarRate = "Star Rate";

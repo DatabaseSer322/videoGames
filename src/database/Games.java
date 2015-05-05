@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class Games { 
 	private static String TABLE_NAME = "Games";
 	private static String FIELD_GID = "Gid";
@@ -110,7 +112,7 @@ public class Games {
 				e.printStackTrace();
 			}
 		}
-		
+		Database.close();
 		return resultList;
 	}
 	
@@ -248,6 +250,8 @@ public class Games {
 		Database.executeSQL("DELETE FROM " + TABLE_NAME_ACCOUNT 
 				+ " WHERE " + FIELD_GID + " = "	+ gid 
 				+ " AND " + FIELD_UID + " = " + uid + ";");
+		
+		Database.close();
 	}
 	
 	/*
@@ -270,10 +274,13 @@ public class Games {
 					+ ") VALUES (" + gid + ", "+ uid + ", \"" + status + "\");");
 			}
 			else {
-				System.out.println("Game is already in your list");
+				JOptionPane.showMessageDialog(null, "Game is already in your list", 
+    					null, JOptionPane.OK_OPTION);
+				//System.out.println("Game is already in your list");
 			}
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
+		Database.close();
 	}
 }
