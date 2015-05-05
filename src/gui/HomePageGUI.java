@@ -31,6 +31,8 @@ public class HomePageGUI extends JPanel {
 	protected ModifiedJButtonField submitSearchButton = new ModifiedJButtonField("Search");
 	protected ModifiedJButtonField seeDetailsButton_1 = new ModifiedJButtonField("Compare Game 1");
 	protected ModifiedJButtonField seeDetailsButton_2 = new ModifiedJButtonField("Compare Game 2");
+	protected ModifiedJButtonField removeCompareButton_1 = new ModifiedJButtonField("Remove Game 1");
+	protected ModifiedJButtonField removeCompareButton_2 = new ModifiedJButtonField("Remove Game 2");
 	protected static ModifiedJTable table_1;
 	protected static ModifiedJTable table_2;
 	protected static ModifiedJTable table_3;
@@ -113,6 +115,14 @@ public class HomePageGUI extends JPanel {
 		seeDetailsButton_2.setBounds(461, 469, 125, 28);
 		add(seeDetailsButton_2);
 		seeDetailsButton_2.setActionCommand("seeDetailsButton_2");
+
+		removeCompareButton_1.setBounds(530,226,125,28);
+		add(removeCompareButton_1);
+		removeCompareButton_1.setActionCommand("removeCompareButton_1");
+		
+		removeCompareButton_2.setBounds(530,380,125,28);
+		add(removeCompareButton_2);
+		removeCompareButton_2.setActionCommand("removeCompareButton_2");
 		
 		ModifiedJScrollPane scrollPane_1 = new ModifiedJScrollPane();
 		scrollPane_1.setBounds(538, 126, 430, 97);

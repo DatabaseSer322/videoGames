@@ -24,6 +24,8 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		submitSearchButton.addActionListener(this);
 		seeDetailsButton_1.addActionListener(this);
 		seeDetailsButton_2.addActionListener(this);
+		removeCompareButton_1.addActionListener(this);
+		removeCompareButton_2.addActionListener(this);
 		
 		populateAllGames();
 		Database.close();
@@ -48,30 +50,25 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		if (e.getActionCommand().equals("seeDetailsButton_1")){
 			//System.out.println("You clicked the details 1 button");
 			
-			currentSelectedRow = table_3.getSelectedRow();
-			if (currentSelectedRow >= 0){
-			
-				compareToTable2(currentSelectedRow);
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Please select a row in which you would like to compare",
-						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
-			}
-			
+			populateCompareList(table_1);
 		}
 		
 		if (e.getActionCommand().equals("seeDetailsButton_2")){
 			//System.out.println("You clicked the details 2 button");
 			
-			currentSelectedRow = table_3.getSelectedRow();
-			if (currentSelectedRow >= 0){
+			populateCompareList(table_2);
+		}
+		
+		if (e.getActionCommand().equals("removeCompareButton_1")){
+			//System.out.println("Remove Game 1.");
 			
-				compareToTable1(currentSelectedRow);
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Please select a row in which you would like to compare",
-						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
-			}
+			removeComp(table_1);
+		}
+		
+		if (e.getActionCommand().equals("removeCompareButton_2")){
+			//System.out.println("Remove Game 2.");
+			
+			removeComp(table_2);
 		}
 	}
 
@@ -147,6 +144,55 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		table_3.getColumnModel().getColumn(2).setPreferredWidth(100);
 		table_3.getColumnModel().getColumn(3).setPreferredWidth(75);
 	}
+	
+	/*
+	 * removeComp(JTable table) allows to remove game from tables
+	 */
+	public void removeComp(JTable table){
+		while(table.getRowCount() > 0){
+			((DefaultTableModel)table.getModel()).removeRow(0);
+		}
+	}
+	
+	public void populateCompareList(JTable table){
+		
+		currentSelectedRow = table_3.getSelectedRow();
+		if (currentSelectedRow >= 0){
+			try{
+				String gidString = (String) table_3.getModel().getValueAt(currentSelectedRow, 0);
+				int gid = Integer.parseInt(gidString);
+
+				DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
+						"Gid", "Title", "Star Rate", "Genre", "Rating" }, 0);
+					
+					Games g1 = Games.getGamesFromDatabaseWithID(gid);		
+					
+					Object[] row = { g1.getGameID(), g1.getGameTitle(), g1.getGameRateStar(), 
+										g1.getGameGenre(), g1.getGameRatingAge() };
+					newTable.addRow(row);
+						
+					table.setModel(newTable);
+					table.removeColumn(table.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+			} catch (RuntimeException ex) {	
+				System.out.println("Runtime Exception");
+				throw ex;
+			} catch (Exception ex) {
+				System.out.println("Exception");
+				ex.printStackTrace();
+			} 
+		} else {
+				JOptionPane.showMessageDialog(null,
+						"Please select a row in which you would like to compare",
+				"	InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+		
+	
+	
+	
+	
+	
+	
 	
 	/*
 	 * compareToTable1(int currSelRow) takes in the row number selected by the user
