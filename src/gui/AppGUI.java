@@ -15,6 +15,7 @@ import database.HomePageGUIClient;
 import database.UserAccountGUIClient;
 
 public class AppGUI extends JLayeredPane {
+	//members
 	private JPanel panelBodyContainer = new JPanel();
 	private JPanel menuPanel = new JPanel();
 	private CardLayout card1 = new CardLayout();

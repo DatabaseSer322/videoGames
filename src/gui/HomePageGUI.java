@@ -45,6 +45,9 @@ public class HomePageGUI extends JPanel {
 	JLabel genreLabel = new JLabel(setGenre + ":");
 	JLabel ratingLabel = new JLabel(setRating + ":");
 	
+	/*
+	 * getters/setters
+	 */
 	public String getTitle() {
 		return setTitle;
 	}
@@ -58,6 +61,10 @@ public class HomePageGUI extends JPanel {
 		return setRating;
 	}
 	
+	/*
+	 * resetFields() resets the JTextFields usually after a search
+	 * 		has been made
+	 */
 	public void resetFields(){
 		txtTitle.setText(setTitle);
 		txtStarRate.setText(setStarRate);

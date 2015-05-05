@@ -13,6 +13,11 @@ import database.Games;
 
 public class UserAccountGUIClient extends UserAccountGUI implements ActionListener {
 	
+	/*
+	 * UserAccountGUIClient() constructor allows to add action listener to the
+	 * 		buttons on the User Account page and automatically populates all 
+	 * 		the games from the database into the table
+	 */
 	public UserAccountGUIClient(){
 		searchButton.addActionListener(this);
 		addToWishListButton.addActionListener(this);
@@ -25,13 +30,23 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		populateAllGames();
 	}
 
+	/*
+	 * Buttons able to push:
+	 * 		Search - lets user search for a game
+	 * 		Add to Wish List - adds a game to user's wish list
+	 * 		Add to Current List - adds a game to user's current list
+	 * 		See Wish List - allows the user to see their wish list
+	 * 		See Current List - allows the user to see their current list
+	 * 		Update to Current List - allows user to switch a wish game to current game
+	 * 		Delete from List - allows user to delete a game from their list
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("searchButton")){
 			//System.out.println("You clicked the search button");
 			
 			populateSearchedGames();
-			
+			Database.close();
 		}
 		
 		if (e.getActionCommand().equals("addToWishListButton")){
@@ -39,33 +54,24 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 			
 			String status = "Wish";
 			int currentSelectedRow = table_2.getSelectedRow();
-			if (currentSelectedRow >= 0)
-			{
-				try
-				{
+			if (currentSelectedRow >= 0){
+				try{
 					int currentUserId = User.getCurrentUser().getUserId();
 					String gidString = (String) table_2.getModel().getValueAt(currentSelectedRow, 0);
 					int gid = Integer.parseInt(gidString);
 					
 					Games selectedGame = new Games();
-					
 					selectedGame.addGameFromList(gid,currentUserId, status);
 					
-					populateUserWishList("Wish");
-				}
-				catch (RuntimeException ex)
-				{
+					populateUserList("Wish");
+				} catch (RuntimeException ex) {
 					throw ex;
-				}
-				catch (Exception ex)
-				{
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else
-			{
+			} else {
 				JOptionPane.showMessageDialog(null,
-						"Please select a row in which you would like to delete",
+						"Please select a row in which you would like to add",
 						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
@@ -75,10 +81,8 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 			
 			String status = "Current";
 			int currentSelectedRow = table_2.getSelectedRow();
-			if (currentSelectedRow >= 0)
-			{
-				try
-				{
+			if (currentSelectedRow >= 0){
+				try{
 					int currentUserId = User.getCurrentUser().getUserId();
 					String gidString = (String) table_2.getModel().getValueAt(currentSelectedRow, 0);
 					int gid = Integer.parseInt(gidString);
@@ -86,21 +90,15 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 					Games selectedGame = new Games();
 					selectedGame.addGameFromList(gid,currentUserId, status);
 					
-					populateUserWishList("Current");
-				}
-				catch (RuntimeException ex)
-				{
+					populateUserList("Current");
+				} catch (RuntimeException ex) {
 					throw ex;
-				}
-				catch (Exception ex)
-				{
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else
-			{
+			} else {
 				JOptionPane.showMessageDialog(null,
-						"Please select a row in which you would like to delete",
+						"Please select a row in which you would like to add",
 						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
@@ -108,13 +106,13 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		if (e.getActionCommand().equals("seeWishListButton")){
 			//System.out.println("You clicked see wish list button");
 			
-			populateUserWishList("Wish");
+			populateUserList("Wish");
 		}
 		
 		if (e.getActionCommand().equals("seeCurrentListButton")){
 			//System.out.println("You clicked see current list button");
 			
-			populateUserWishList("Current");
+			populateUserList("Current");
 		}
 		
 		if (e.getActionCommand().equals("updateToCurrentListButton")){
@@ -122,10 +120,8 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 			
 			String status = "Current";
 			int currentSelectedRow = table_1.getSelectedRow();
-			if (currentSelectedRow >= 0)
-			{
-				try
-				{
+			if (currentSelectedRow >= 0){
+				try{
 					int currentUserId = User.getCurrentUser().getUserId();
 					String gidString = (String) table_1.getModel().getValueAt(currentSelectedRow, 0);
 					int gid = Integer.parseInt(gidString);
@@ -134,19 +130,13 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 					selectedGame.deleteGameFromList(gid,currentUserId);
 					selectedGame.addGameFromList(gid, currentUserId, status);
 					
-					populateUserWishList("Wish");
-				}
-				catch (RuntimeException ex)
-				{
+					populateUserList("Wish");
+				} catch (RuntimeException ex) {
 					throw ex;
-				}
-				catch (Exception ex)
-				{
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			}
-			else
-			{
+			} else {
 				JOptionPane.showMessageDialog(null,
 						"Please select a row in which you would like to update",
 						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
@@ -157,9 +147,7 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 			//System.out.println("You clicked delete from list button");
 			
 			int currentSelectedRow = table_1.getSelectedRow();
-			if (currentSelectedRow >= 0)
-			{
-				
+			if (currentSelectedRow >= 0){
 				/*
 				 * Displays warning window asking the user if they would like to follow
 				 * through with deleting the selected game from their list.
@@ -168,29 +156,21 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 								null, "Are you sure you want to delete the highlighted game from your list?",
 								null, JOptionPane.YES_NO_OPTION);
 				
-				if (result == JOptionPane.YES_OPTION)
-				{
-					try
-					{
+				if (result == JOptionPane.YES_OPTION){
+					try{
 						int currentUserId = User.getCurrentUser().getUserId();
 						String gidString = (String) table_1.getModel().getValueAt(currentSelectedRow, 0);
 						int gid = Integer.parseInt(gidString);
 						
 						Games selectedGame = new Games();
 						selectedGame.deleteGameFromList(gid,currentUserId);
-					}
-					catch (RuntimeException ex)
-					{
+					} catch (RuntimeException ex) {
 						throw ex;
-					}
-					catch (Exception ex)
-					{
+					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
 				}
-			}
-			else
-			{
+			} else {
 				JOptionPane.showMessageDialog(null,
 						"Please select a row in which you would like to delete",
 						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
@@ -198,14 +178,16 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		}
 	}
 	
+	/*
+	 * populateAllGames() populates all games form the database to the table
+	 */
 	public void populateAllGames(){
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
 				"Gid", "Title", "Star Rate", "Genre", "Rating"	}, 0);
 		
 		ArrayList<Games> gamesList = Games.getAllGamesFromDatabase();
 		
-		for (Games g : gamesList)
-		{
+		for (Games g : gamesList){
 			Object[] row = { g.getGameID(), g.getGameTitle(), g.getGameRateStar(), 
 							g.getGameGenre(), g.getGameRatingAge() };
 			newTable.addRow(row);
@@ -215,7 +197,11 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		table_2.removeColumn(table_2.getColumnModel().getColumn(0)); //Gid column is removed but not gone
 	}
 	
-	public void populateUserWishList(String status){
+	/*
+	 * populateUserList(String status) takes in the status as string to add a game
+	 * 		to a user's wish or current list
+	 */
+	public void populateUserList(String status){
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
 				"Gid", "Title", "Star Rate", "Genre", "Rating" }, 0);
 		
@@ -225,8 +211,7 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 			
 			ArrayList<Games> gamesList = Games.getUserGamesFromDatabase(status, loggedInUserID);
 			
-			for (Games g : gamesList)
-			{
+			for (Games g : gamesList){
 				Object[] row = { g.getGameID(), g.getGameTitle(), g.getGameRateStar(), 
 								g.getGameGenre(), g.getGameRatingAge() };
 				newTable.addRow(row);
@@ -237,10 +222,13 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		}
 	}
 	
+	/*
+	 * populateSearchedGames() allows the user to see their search results in the table
+	 */
 	public void populateSearchedGames(){
 		
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-				"Title", "Star Rate", "Genre", "Rating"	}, 0);
+				"ID", "Title", "Star Rate", "Genre", "Rating"	}, 0);
 		
 		Games filter = new Games(checkForString(txtTitle.getText()), 
 								checkForString(txtStarRate.getText()), 
@@ -248,16 +236,21 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 								checkForString(txtRating.getText()));
 		ArrayList<Games> gamesList = Games.getFilteredGamesFromDatabase(filter);
 		
-		for (Games g : gamesList)
-		{
-			Object[] row = { g.getGameTitle(), g.getGameRateStar(), 
+		for (Games g : gamesList){
+			Object[] row = { g.getGameID(), g.getGameTitle(), g.getGameRateStar(), 
 							g.getGameGenre(), g.getGameRatingAge() };
 			newTable.addRow(row);
 		}
 		
 		table_2.setModel(newTable);
+		table_2.removeColumn(table_2.getColumnModel().getColumn(0)); //Gid column is removed but not gone
 	}
 	
+	/*
+	 * checkForString(String userInput) takes in user's input one JTextField at a time
+	 * 		and checks for any changes. If no changes made, return null, otherwise
+	 * 		return string
+	 */
 	public String checkForString(String userInput){
 		String result;
 		
@@ -269,8 +262,7 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 			userInput.length() == 0) {
 			
 			result = null;
-		}
-		else {
+		} else {
 			result = userInput;
 		}
 		

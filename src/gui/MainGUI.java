@@ -57,9 +57,10 @@ public class MainGUI {
 		card1.show(panelContainer, "1");
 	}
 
-	//showAppliationGUI() displays the main program after logging in
+	/*
+	 * showAppliationGUI() displays the main program after logging in
+	 */
 	public static void showApplicationGUI() {
-		//panelApplication.loadUserInfoIntoControls();
 		card1.show(panelContainer, "2");
 		
 	}

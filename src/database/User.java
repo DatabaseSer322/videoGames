@@ -127,8 +127,7 @@ public class User {
 	 * 				values from user then creates a new user with those credentials
 	 * 				and returns the user object
 	 */
-	public static User newUser(String fn, String ln, String dob, String email, String pwd)
-	{
+	public static User newUser(String fn, String ln, String dob, String email, String pwd){
 		User userResult = null;
 		
 		String query = "INSERT INTO " + TABLE_NAME + "(" + FIELD_FIRST_NAME + ", "
@@ -138,7 +137,7 @@ public class User {
 				+ email + "\", \"" + pwd + "\")";
 		
 		try{
-			Class.forName("org.sqlite.JDBC"); //load driver
+			//Class.forName("org.sqlite.JDBC"); //load driver
 			connection = DriverManager.getConnection(Database.getDBLocation());
 			statement = connection.createStatement();
 			statement.executeUpdate(query);
@@ -146,18 +145,13 @@ public class User {
 					+ " WHERE " + FIELD_USER_EMAIL + " = " + "\"" + email + "\"";
 			rs = statement.executeQuery(sqlString);
 			
-			if (rs != null)
-			{
-				try
-				{
-					if (rs.next())
-					{
+			if (rs != null){
+				try{
+					if (rs.next()){
 						userResult = new User(rs);
 						setCurrentUser(userResult);
 					}
-				}
-				catch (SQLException e)
-				{
+				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
@@ -179,28 +173,23 @@ public class User {
 	 * 				input and checks credentials to allow user to log in
 	 * 				then sets current user to their account
 	 */
-	public static User authenticateUser(String email, String password)
-	{
+	public static User authenticateUser(String email, String password){
 		User result = null;
 		String sqlString = "SELECT * FROM " + TABLE_NAME + " "
 				+ "WHERE " + FIELD_USER_EMAIL + " = \"" + email + "\" AND "
 				+ FIELD_PASSWORD + " = \"" + password + "\"";
 		ResultSet rs = Database.getResultSetFromSQL(sqlString);
-		if (rs != null)
-		{
-			try
-			{
-				if (rs.next())
-				{
+		if (rs != null){
+			try{
+				if (rs.next()){
 					result = new User(rs);
 					setCurrentUser(result);
 				}
-			}
-			catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		
 		Database.close();
 		
 		return result;

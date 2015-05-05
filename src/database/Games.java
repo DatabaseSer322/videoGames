@@ -24,10 +24,14 @@ public class Games {
 	
 	private String gameStatus;
 	
-	public Games(){
-		
+	//empty constructor
+	public Games(){	
 	}
 	
+	/*
+	 * Games(String title, String rate, String genre, String rating) is a
+	 * 		constructor accepting 4 parameters setting a game's attributes
+	 */
 	public Games(String title, String rate, String genre, String rating){
 		this.gameTitle = title;
 		this.gameRateStar = rate;
@@ -35,6 +39,10 @@ public class Games {
 		this.gameRatingAge = rating;
 	}
 	
+	/*
+	 * Games(ResultSet rs) constructor accepting 1 parameter as a ResultSet
+	 * 		from the database setting a game's attributes
+	 */
 	public Games(ResultSet rs){
 		try{
 			this.gameID = rs.getString("Gid");
@@ -47,7 +55,9 @@ public class Games {
 		}
 	}
 	
-	
+	/*
+	 * getters/setters
+	 */
 	public String getGameID() {
 		return gameID;
 	}
@@ -83,24 +93,20 @@ public class Games {
 		this.gameStatus = gameStatus;
 	}
 	
-	
-	public static ArrayList<Games> getAllGamesFromDatabase()
-	{
+	/*
+	 * getAllGamesFromDatabase() collects all the games in the database
+	 */
+	public static ArrayList<Games> getAllGamesFromDatabase(){
 		ArrayList<Games> resultList = new ArrayList<Games>();
 		
 		ResultSet rs = Database.getResultSetFromSQL("SELECT * FROM " + TABLE_NAME);
-		if (rs != null)
-		{
-			try
-			{
-				while (rs.next())
-				{
+		if (rs != null){
+			try{
+				while (rs.next()){
 					Games game = new Games(rs);
 					resultList.add(game);
 				}
-			}
-			catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -108,8 +114,12 @@ public class Games {
 		return resultList;
 	}
 	
-	public static ArrayList<Games> getFilteredGamesFromDatabase(Games filter)
-	{
+	/*
+	 * getFilteredGamesFromDatabase(Games filter) takes in attributes of a game
+	 * 		and searches for that particular game or games that match the given
+	 * 		attributes and ruturn the list of games
+	 */
+	public static ArrayList<Games> getFilteredGamesFromDatabase(Games filter){
 		ArrayList<Games> resultList = new ArrayList<Games>();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME + " " + filter.getWhereClause()
@@ -117,18 +127,13 @@ public class Games {
 				+ FIELD_GENRE + ", " + FIELD_RATING_AGE;
 		ResultSet rs = Database.getResultSetFromSQL(sql);
 		
-		if (rs != null)
-		{
-			try
-			{
-				while (rs.next())
-				{
+		if (rs != null){
+			try{
+				while (rs.next()){
 					Games game = new Games(rs);
 					resultList.add(game);
 				}
-			}
-			catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -138,14 +143,16 @@ public class Games {
 		return resultList;
 	}
 	
-	public String getWhereClause()
-	{
+	/*
+	 * getWhereClause() allows to build the query from the information from the
+	 * 		search window and return the collective string
+	 */
+	public String getWhereClause(){
 		StringBuilder whereClause = new StringBuilder();
 		String result = new String("");
 		
 		if (gameTitle != null || gameRateStar != null || gameGenre != null
-				|| gameRatingAge != null)
-		{
+				|| gameRatingAge != null){
 			whereClause = addCriteriaToStringBuilder(whereClause, "Title", gameTitle);
 			whereClause = addCriteriaToStringBuilder(whereClause, "Rate_Star", gameRateStar);
 			whereClause = addCriteriaToStringBuilder(whereClause, "Genre", gameGenre);
@@ -157,14 +164,16 @@ public class Games {
 		return result;
 	}
 	
+	/*
+	 * addCriteriaToStringBuilder(StringBuilder builder, String fieldName, String value)
+	 * 		takes in parameters of game info one at a time and appends the correct
+	 * 		syntax needed and return the StringBuilder
+	 */
 	private StringBuilder addCriteriaToStringBuilder(StringBuilder builder,
-			String fieldName, String value)
-	{
+			String fieldName, String value){
 		
-		if (value != null)
-		{
-			if (builder.length() > 0)
-			{
+		if (value != null){
+			if (builder.length() > 0){
 				builder.append(" AND ");
 			}
 			
@@ -174,8 +183,11 @@ public class Games {
 		return builder;
 	}
 	
-	public static ArrayList<Games> getUserGamesFromDatabase(String status, int userID)
-	{
+	/*
+	 * getUserGamesFromDatabase(String status, int userID) takes in the status and userID
+	 * 		to find all games currently in that status and return the list
+	 */
+	public static ArrayList<Games> getUserGamesFromDatabase(String status, int userID){
 		ArrayList<Games> resultList = new ArrayList<Games>();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME_ACCOUNT 
@@ -185,19 +197,14 @@ public class Games {
 
 		ResultSet rs = Database.getResultSetFromSQL(sql);
 		
-		if (rs != null)
-		{
-			try
-			{
-				while (rs.next())
-				{
+		if (rs != null){
+			try{
+				while (rs.next()){
 					int gameId = rs.getInt(FIELD_GID);
 					Games games = getGamesFromDatabaseWithID(gameId);
 					resultList.add(games);
 				}
-			}
-			catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -207,25 +214,23 @@ public class Games {
 		return resultList;
 	}
 
-	public static Games getGamesFromDatabaseWithID(int id)
-	{
+	/*
+	 * getGamesFromDatabaseWithID(int id) takes in a game ID and returns
+	 * 		the game that corresponds with that ID
+	 */
+	public static Games getGamesFromDatabaseWithID(int id){
 		Games resultGame = new Games();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME + " " 
 					+ " WHERE " + FIELD_GID + " = " + id;
 		ResultSet rs = Database.getResultSetFromSQL(sql);
 		
-		if (rs != null)
-		{
-			try
-			{
-				while (rs.next())
-				{
+		if (rs != null){
+			try{
+				while (rs.next()){
 					resultGame = new Games(rs);
 				}
-			}
-			catch (SQLException e)
-			{
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -235,12 +240,21 @@ public class Games {
 		return resultGame;
 	}
 	
+	/*
+	 * deleteGameFromList(int gid, int uid) takes in the primary key elements
+	 * 		to find and remove the game from the user's list completely
+	 */
 	public void deleteGameFromList(int gid, int uid){
 		Database.executeSQL("DELETE FROM " + TABLE_NAME_ACCOUNT 
 				+ " WHERE " + FIELD_GID + " = "	+ gid 
 				+ " AND " + FIELD_UID + " = " + uid + ";");
 	}
 	
+	/*
+	 * addGameFromList(int gid, int uid, String status) takes in the game ID and the
+	 *  	user ID along with the status the user wants the game to go to and adds
+	 *  	that information to the Game_Account table
+	 */
 	public void addGameFromList(int gid, int uid, String status){
 		String checkExistingGameInList = "SELECT COUNT(*) FROM " + TABLE_NAME_ACCOUNT +
 				" WHERE " + FIELD_GID + " = \"" + gid + "\" AND " +

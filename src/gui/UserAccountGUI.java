@@ -26,6 +26,9 @@ public class UserAccountGUI extends JPanel {
 	protected ModifiedJTable table_1;
 	protected ModifiedJTable table_2;
 	
+	/*
+	 * UserAccountGUI() sets the layout of the User Account page when clicked on
+	 */
 	public UserAccountGUI(){
 		setPreferredSize(new Dimension(1000, 650));
 		setBackground(new Color(105,105,105));

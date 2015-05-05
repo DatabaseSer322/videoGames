@@ -134,10 +134,10 @@ public class CreateAccount extends JPanel {
 		try {
 			rs.next();
 			int count = rs.getInt("rowcount");
-			System.out.println("count: "+count);
+
 			if(count < 1){
 				return true;
-			} else{
+			} else {
 				return false;
 			}
 		} catch (SQLException e) {

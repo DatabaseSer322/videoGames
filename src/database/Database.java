@@ -15,12 +15,18 @@ import org.sqlite.SQLiteConnection;
 public class Database {
 
 	//private members
-	private final static String TABLE_NAME = "User_Account";
 	private final static String DB_LOCATION = "jdbc:sqlite:C:/Users/klicata/workspace/VideoGames/sql/VideoGameDatabase";
 	private static Connection connection = null;
 	private static Statement statement = null;
 	private static ResultSet rs = null;
 
+	/*
+	 * getDBLocation() is a getter method 
+	 */
+	public static String getDBLocation(){
+		return DB_LOCATION;
+	}
+	
 	/*
 	 * close() closes all connection to the database
 	 */
@@ -50,7 +56,7 @@ public class Database {
 		MainGUI.setHourGlass(true);
 		
 		try {
-			Class.forName("org.sqlite.JDBC"); // Register JDBC driver
+			//Class.forName("org.sqlite.JDBC"); // Register JDBC driver
 			connection = DriverManager.getConnection(DB_LOCATION);
 			statement = connection.createStatement();
 			rs = statement.executeQuery(sql);
@@ -96,7 +102,7 @@ public class Database {
 		
 		if(sqlString != null){
 			try{
-				Class.forName("org.sqlite.JDBC"); //load sqlite-JDBC driver
+				//Class.forName("org.sqlite.JDBC"); //load sqlite-JDBC driver
 				connection = DriverManager.getConnection(DB_LOCATION);
 				statement = connection.createStatement();
 				result = statement.execute(sqlString);
@@ -117,7 +123,7 @@ public class Database {
 		
 		if(sqlString != null){
 			try{
-				Class.forName("org.sqlite.JDBC"); //load sqlite-JDBC driver
+				//Class.forName("org.sqlite.JDBC"); //load sqlite-JDBC driver
 				connection = DriverManager.getConnection(DB_LOCATION);
 				statement = connection.createStatement();
 				result = statement.execute(sqlString);
@@ -131,12 +137,5 @@ public class Database {
 		}
 		
 		return result;
-	}
-	
-	/*
-	 * getDBLocation() is a getter method 
-	 */
-	public static String getDBLocation(){
-		return DB_LOCATION;
 	}
 }
