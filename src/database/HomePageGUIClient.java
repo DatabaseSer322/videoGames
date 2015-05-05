@@ -170,9 +170,12 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 					Object[] row = { g1.getGameID(), g1.getGameTitle(), g1.getGameRateStar(), 
 										g1.getGameGenre(), g1.getGameRatingAge() };
 					newTable.addRow(row);
-						
+					
 					table.setModel(newTable);
 					table.removeColumn(table.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+					table.getColumnModel().getColumn(0).setPreferredWidth(200);
+					table.getColumnModel().getColumn(2).setPreferredWidth(100);
+					table.getColumnModel().getColumn(3).setPreferredWidth(75);
 			} catch (RuntimeException ex) {	
 				System.out.println("Runtime Exception");
 				throw ex;
@@ -187,13 +190,6 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		}
 	}
 		
-	
-	
-	
-	
-	
-	
-	
 	/*
 	 * compareToTable1(int currSelRow) takes in the row number selected by the user
 	 * 		and gets all the information to display in the comparison table
