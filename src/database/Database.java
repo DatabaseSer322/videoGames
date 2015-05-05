@@ -112,6 +112,27 @@ public class Database {
 		return result;
 	}
 	
+	public static boolean checkDatabase(String sqlString) {
+		boolean result = false;
+		
+		if(sqlString != null){
+			try{
+				Class.forName("org.sqlite.JDBC"); //load sqlite-JDBC driver
+				connection = DriverManager.getConnection(DB_LOCATION);
+				statement = connection.createStatement();
+				result = statement.execute(sqlString);
+				
+			} catch (SQLException e) {
+				//possibly db file not found
+				System.err.println(e.getMessage());
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		}
+		
+		return result;
+	}
+	
 	/*
 	 * getDBLocation() is a getter method 
 	 */

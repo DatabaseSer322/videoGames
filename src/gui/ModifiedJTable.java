@@ -25,11 +25,10 @@ public class ModifiedJTable extends JTable{
 	 */
 	ModifiedJTable(TableModel dm){
 		super(dm);
-		//setBorder(null);
 		setShowVerticalLines(false);
 		setShowGrid(false);
 		setShowHorizontalLines(false);
-		setFont(font_2);
+		setFont(font_1);
 		setForeground(new Color(240, 255, 240));
 		
 		header.setBackground(new Color(173,216,230));

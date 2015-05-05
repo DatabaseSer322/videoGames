@@ -242,8 +242,24 @@ public class Games {
 	}
 	
 	public void addGameFromList(int gid, int uid, String status){
-		Database.executeSQL("INSERT INTO " + TABLE_NAME_ACCOUNT 
-				+ "(" + FIELD_GID + ", " + FIELD_UID + ", " + FIELD_STATUS
-				+ ") VALUES (" + gid + ", "+ uid + ", \"" + status + "\");");
+		String checkExistingGameInList = "SELECT COUNT(*) FROM " + TABLE_NAME_ACCOUNT +
+				" WHERE " + FIELD_GID + " = \"" + gid + "\" AND " +
+				FIELD_UID + " = \"" + uid + "\"";
+		
+		ResultSet gameInList = Database.getResultSetFromSQL(checkExistingGameInList);
+		
+		try{
+			if(gameInList.getInt(1) < 1){
+				Database.close();
+				Database.executeSQL("INSERT INTO " + TABLE_NAME_ACCOUNT 
+					+ "(" + FIELD_GID + ", " + FIELD_UID + ", " + FIELD_STATUS
+					+ ") VALUES (" + gid + ", "+ uid + ", \"" + status + "\");");
+			}
+			else {
+				System.out.println("Game is already in your list");
+			}
+		} catch (SQLException se) {
+			System.err.println(se.getMessage());
+		}
 	}
 }

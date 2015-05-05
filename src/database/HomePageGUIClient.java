@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,11 +32,51 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		if (e.getActionCommand().equals("seeDetailsButton_1")){
 			System.out.println("You clicked the details 1 button");
 			
+			DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
+					"Title", "Star Rate", "Genre", "Rating"	}, 0);
+			
+			int currentSelectedRow = table_3.getSelectedRow();
+			if (currentSelectedRow >= 0){
+				String titleToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 1);
+				String rateToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 2);
+				String genreToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 3);
+				String ratingToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 4);
+				
+				Object[] row = { titleToCompare, rateToCompare, 
+						genreToCompare, ratingToCompare };
+				newTable.addRow(row);
+				table_1.setModel(newTable);
+				
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"Please select a row in which you would like to compare",
+						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		
 		if (e.getActionCommand().equals("seeDetailsButton_2")){
 			System.out.println("You clicked the details 2 button");
 			
+			DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
+					"Title", "Star Rate", "Genre", "Rating"	}, 0);
+			
+			int currentSelectedRow = table_3.getSelectedRow();
+			if (currentSelectedRow >= 0){
+				String titleToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 1);
+				String rateToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 2);
+				String genreToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 3);
+				String ratingToCompare = (String) table_3.getModel().getValueAt(currentSelectedRow, 4);
+				
+				Object[] row = { titleToCompare, rateToCompare, 
+						genreToCompare, ratingToCompare };
+				newTable.addRow(row);
+				table_2.setModel(newTable);
+				
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"Please select a row in which you would like to compare",
+						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 	

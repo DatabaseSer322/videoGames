@@ -73,32 +73,6 @@ public class HomePageGUI extends JPanel {
 		setPreferredSize(new Dimension(1000, 650));
 		setBackground(new Color(105,105,105));
 		setLayout(null);
-
-		/*
-		titleLabel.setFont(font);
-		titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		titleLabel.setForeground(new Color(173,216,230));
-		titleLabel.setBounds(45, 65, 79, 28);
-		add(titleLabel);
-		
-		starRateLabel.setFont(font);
-		starRateLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		starRateLabel.setForeground(new Color(173,216,230));
-		starRateLabel.setBounds(45, 104, 79, 28);
-		add(starRateLabel);
-		
-		genreLabel.setFont(font);
-		genreLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		genreLabel.setForeground(new Color(173,216,230));
-		genreLabel.setBounds(45, 143, 79, 28);
-		add(genreLabel);
-		
-		ratingLabel.setFont(font);
-		ratingLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		ratingLabel.setForeground(new Color(173,216,230));
-		ratingLabel.setBounds(45, 182, 79, 28);
-		add(ratingLabel);
-		*/
 		
 		txtTitle.setBounds(134, 64, 225, 31);
 		add(txtTitle);
@@ -149,6 +123,5 @@ public class HomePageGUI extends JPanel {
 		add(scrollPane_3);
 		table_3 = new ModifiedJTable(new DefaultTableModel(null, new Object[] {"Title", "Star Rate", "Genre", "Rating"}));
 		scrollPane_3.setViewportView(table_3);
-		
 	}
 }

@@ -2,6 +2,7 @@ package database;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -27,7 +28,9 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("searchButton")){
-			System.out.println("You clicked the search button");
+			//System.out.println("You clicked the search button");
+			
+			populateSearchedGames();
 			
 		}
 		
@@ -45,6 +48,7 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 					int gid = Integer.parseInt(gidString);
 					
 					Games selectedGame = new Games();
+					
 					selectedGame.addGameFromList(gid,currentUserId, status);
 					
 					populateUserWishList("Wish");
@@ -144,7 +148,7 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 			else
 			{
 				JOptionPane.showMessageDialog(null,
-						"Please select a row in which you would like to delete",
+						"Please select a row in which you would like to update",
 						"InfoBox: Video Games", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
@@ -231,5 +235,45 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 			table_1.setModel(newTable);
 			table_1.removeColumn(table_1.getColumnModel().getColumn(0)); //Gid column is removed but not gone
 		}
+	}
+	
+	public void populateSearchedGames(){
+		
+		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
+				"Title", "Star Rate", "Genre", "Rating"	}, 0);
+		
+		Games filter = new Games(checkForString(txtTitle.getText()), 
+								checkForString(txtStarRate.getText()), 
+								checkForString(txtGenre.getText()), 
+								checkForString(txtRating.getText()));
+		ArrayList<Games> gamesList = Games.getFilteredGamesFromDatabase(filter);
+		
+		for (Games g : gamesList)
+		{
+			Object[] row = { g.getGameTitle(), g.getGameRateStar(), 
+							g.getGameGenre(), g.getGameRatingAge() };
+			newTable.addRow(row);
+		}
+		
+		table_2.setModel(newTable);
+	}
+	
+	public String checkForString(String userInput){
+		String result;
+		
+		if (userInput.equals("") ||
+			userInput.equals("Title") ||
+			userInput.equals("Star Rate") ||
+			userInput.equals("Genre") ||
+			userInput.equals("Rating") ||
+			userInput.length() == 0) {
+			
+			result = null;
+		}
+		else {
+			result = userInput;
+		}
+		
+		return result;
 	}
 }
