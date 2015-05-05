@@ -144,12 +144,13 @@ public class User {
 			String sqlString = "SELECT * FROM " + TABLE_NAME 
 					+ " WHERE " + FIELD_USER_EMAIL + " = " + "\"" + email + "\"";
 			rs = statement.executeQuery(sqlString);
-			
+
 			if (rs != null){
 				try{
 					if (rs.next()){
 						userResult = new User(rs);
 						setCurrentUser(userResult);
+						rs.close();
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -161,9 +162,9 @@ public class User {
 			System.err.println(se.getMessage());
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
-		} finally {
+		}/* finally {
 			Database.close();
-		}
+		}*/
 
 		return userResult;
 	}
