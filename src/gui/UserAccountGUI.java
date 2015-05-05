@@ -87,12 +87,14 @@ public class UserAccountGUI extends JPanel {
 		add(scrollPane_1);
 		table_1 = new ModifiedJTable(new DefaultTableModel(null, new Object[] {"Title", "Star Rate", "Genre", "Rating"}));
 		scrollPane_1.setViewportView(table_1);
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(200);
 		
 		ModifiedJScrollPane scrollPane_2 = new ModifiedJScrollPane();
 		scrollPane_2.setBounds(45, 289, 406, 208);
 		add(scrollPane_2);
 		table_2 = new ModifiedJTable(new DefaultTableModel(null, new Object[] {"Title", "Star Rate", "Genre", "Rating" }));
 		scrollPane_2.setViewportView(table_2);
+		table_2.getColumnModel().getColumn(0).setPreferredWidth(200);
 
 	}
 }

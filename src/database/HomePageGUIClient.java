@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import gui.HomePageGUI;
 
@@ -44,7 +45,7 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 			//System.out.println("You clicked the details 1 button");
 			
 			DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-					"ID", "Title", "Star Rate", "Genre", "Rating"	}, 0);
+					"ID", "Title", "Stars", "Genre", "Rating"	}, 0);
 			
 			int currentSelectedRow = table_3.getSelectedRow();
 			if (currentSelectedRow >= 0){
@@ -58,6 +59,9 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 				newTable.addRow(row);
 				table_1.setModel(newTable);
 				table_1.removeColumn(table_1.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+				table_1.getColumnModel().getColumn(0).setPreferredWidth(200);
+				table_1.getColumnModel().getColumn(2).setPreferredWidth(100);
+				table_1.getColumnModel().getColumn(3).setPreferredWidth(75);
 				
 			} else {
 				JOptionPane.showMessageDialog(null,
@@ -70,7 +74,7 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 			//System.out.println("You clicked the details 2 button");
 			
 			DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-					"ID", "Title", "Star Rate", "Genre", "Rating"	}, 0);
+					"ID", "Title", "Stars", "Genre", "Rating"	}, 0);
 			
 			int currentSelectedRow = table_3.getSelectedRow();
 			if (currentSelectedRow >= 0){
@@ -84,6 +88,9 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 				newTable.addRow(row);
 				table_2.setModel(newTable);
 				table_2.removeColumn(table_2.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+				table_2.getColumnModel().getColumn(0).setPreferredWidth(200);
+				table_2.getColumnModel().getColumn(2).setPreferredWidth(100);
+				table_2.getColumnModel().getColumn(3).setPreferredWidth(75);
 				
 			} else {
 				JOptionPane.showMessageDialog(null,
@@ -99,7 +106,7 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 	public void populateSearchedGames(){
 		
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-				"ID", "Title", "Star Rate", "Genre", "Rating"	}, 0);
+				"ID", "Title", "Stars", "Genre", "Rating"	}, 0);
 		
 		Games filter = new Games(checkForString(txtTitle.getText()), 
 								checkForString(txtStarRate.getText()), 
@@ -115,6 +122,9 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		
 		table_3.setModel(newTable);
 		table_3.removeColumn(table_3.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+		table_3.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table_3.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_3.getColumnModel().getColumn(3).setPreferredWidth(75);
 	}
 	
 	/*
@@ -145,7 +155,7 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 	public void populateAllGames(){
 		//Gid is added behind the scenes
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-				"Gid", "Title", "Star Rate", "Genre", "Rating"	}, 0);
+				"Gid", "Title", "Stars", "Genre", "Rating"	}, 0);
 		
 		ArrayList<Games> gamesList = Games.getAllGamesFromDatabase();
 		
@@ -157,5 +167,8 @@ public class HomePageGUIClient extends HomePageGUI implements ActionListener {
 		
 		table_3.setModel(newTable);
 		table_3.removeColumn(table_3.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+		table_3.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table_3.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_3.getColumnModel().getColumn(3).setPreferredWidth(75);
 	}
 }

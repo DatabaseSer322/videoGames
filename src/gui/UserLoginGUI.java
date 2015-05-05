@@ -27,7 +27,7 @@ public class UserLoginGUI extends JPanel {
 	private final JLabel passwordLabel = new JLabel("Password:");
 	private final String usr = "Email";
 	private final String pwd = "";
-	private final Font font = new Font("Elephant", Font.PLAIN, 14);
+	private final Font font = new Font("Elephant", Font.PLAIN, 18);
 	
 	MainGUI main = null;
 	
@@ -43,30 +43,30 @@ public class UserLoginGUI extends JPanel {
 		userNameLabel.setFont(font);
 		userNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		userNameLabel.setForeground(new Color(173,216,230));
-		userNameLabel.setBounds(451, 197, 98, 16);
+		userNameLabel.setBounds(350, 197, 300, 29);
 		add(userNameLabel);
 		
 		passwordLabel.setFont(font);
 		passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		passwordLabel.setForeground(new Color(173,216,230));
-		passwordLabel.setBounds(451, 251, 98, 16);
+		passwordLabel.setBounds(350, 282, 300, 23);
 		add(passwordLabel);
 		
-		userEmail.setBounds(350, 213, 300, 28);
+		userEmail.setBounds(350, 226, 300, 28);
 		userEmail.setText(usr);
 		add(userEmail);
 		userEmail.addFocusListener(new ModifiedFocusAdapter(userEmail, usr));
 		
-		password.setLocation(350,266);
+		password.setLocation(350,310);
 		password.setSize(300,28);
 		password.setText(pwd);
 		add(password);
 		password.addFocusListener(new ModifiedFocusAdapter(password, pwd));
 		
-		submitButton.setBounds(445, 310, 109, 29);
+		submitButton.setBounds(350, 375, 300, 29);
 		add(submitButton);
 		
-		createAccountButton.setBounds(408, 358, 183, 28);
+		createAccountButton.setBounds(350, 415, 300, 28);
 		add(createAccountButton);
 		
 		submitButton.addActionListener(new ActionListener(){

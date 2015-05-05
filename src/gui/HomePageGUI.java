@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -118,17 +119,21 @@ public class HomePageGUI extends JPanel {
 		add(scrollPane_1);
 		table_1 = new ModifiedJTable(new DefaultTableModel(null, new Object[] {"Title", "Star Rate", "Genre", "Rating"}));
 		scrollPane_1.setViewportView(table_1);
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(200);
 		
 		ModifiedJScrollPane scrollPane_2 = new ModifiedJScrollPane();
 		scrollPane_2.setBounds(538, 280, 430, 97);
 		add(scrollPane_2);
 		table_2 = new ModifiedJTable(new DefaultTableModel(null, new Object[] {"Title", "Star Rate", "Genre", "Rating" }));
 		scrollPane_2.setViewportView(table_2);
+		table_2.getColumnModel().getColumn(0).setPreferredWidth(200);
 		
 		ModifiedJScrollPane scrollPane_3 = new ModifiedJScrollPane();
 		scrollPane_3.setBounds(45, 289, 406, 208);
 		add(scrollPane_3);
 		table_3 = new ModifiedJTable(new DefaultTableModel(null, new Object[] {"Title", "Star Rate", "Genre", "Rating"}));
 		scrollPane_3.setViewportView(table_3);
+		table_3.getColumnModel().getColumn(0).setPreferredWidth(200);
+		
 	}
 }

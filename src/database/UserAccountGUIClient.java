@@ -164,6 +164,8 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 						
 						Games selectedGame = new Games();
 						selectedGame.deleteGameFromList(gid,currentUserId);
+
+						populateUserList("Wish");
 					} catch (RuntimeException ex) {
 						throw ex;
 					} catch (Exception ex) {
@@ -183,7 +185,7 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 	 */
 	public void populateAllGames(){
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-				"Gid", "Title", "Star Rate", "Genre", "Rating"	}, 0);
+				"Gid", "Title", "Stars", "Genre", "Rating"	}, 0);
 		
 		ArrayList<Games> gamesList = Games.getAllGamesFromDatabase();
 		
@@ -195,6 +197,9 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		
 		table_2.setModel(newTable);
 		table_2.removeColumn(table_2.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+		table_2.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table_2.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_2.getColumnModel().getColumn(3).setPreferredWidth(75);
 	}
 	
 	/*
@@ -203,7 +208,7 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 	 */
 	public void populateUserList(String status){
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-				"Gid", "Title", "Star Rate", "Genre", "Rating" }, 0);
+				"Gid", "Title", "Stars", "Genre", "Rating" }, 0);
 		
 		if(User.getCurrentUser() != null){
 			User currentlyLoggedInUser = User.getCurrentUser();
@@ -219,6 +224,9 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 			
 			table_1.setModel(newTable);
 			table_1.removeColumn(table_1.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+			table_1.getColumnModel().getColumn(0).setPreferredWidth(200);
+			table_1.getColumnModel().getColumn(2).setPreferredWidth(100);
+			table_1.getColumnModel().getColumn(3).setPreferredWidth(75);
 		}
 	}
 	
@@ -228,7 +236,7 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 	public void populateSearchedGames(){
 		
 		DefaultTableModel newTable = new DefaultTableModel(new Object[] { 
-				"ID", "Title", "Star Rate", "Genre", "Rating"	}, 0);
+				"ID", "Title", "Stars", "Genre", "Rating"	}, 0);
 		
 		Games filter = new Games(checkForString(txtTitle.getText()), 
 								checkForString(txtStarRate.getText()), 
@@ -244,6 +252,9 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 		
 		table_2.setModel(newTable);
 		table_2.removeColumn(table_2.getColumnModel().getColumn(0)); //Gid column is removed but not gone
+		table_2.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table_2.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_2.getColumnModel().getColumn(3).setPreferredWidth(75);
 	}
 	
 	/*
