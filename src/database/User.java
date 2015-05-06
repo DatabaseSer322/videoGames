@@ -137,7 +137,7 @@ public class User {
 				+ email + "\", \"" + pwd + "\")";
 		
 		try{
-			//Class.forName("org.sqlite.JDBC"); //load driver
+			Class.forName("org.sqlite.JDBC"); //load driver
 			connection = DriverManager.getConnection(Database.getDBLocation());
 			statement = connection.createStatement();
 			statement.executeUpdate(query);
