@@ -283,4 +283,17 @@ public class Games {
 		}
 		Database.close();
 	}
+	
+	/*
+	 * updateGameFromWishToCurrentList(int uid, int gid) takes in the user's identification
+	 * 			and the game's identification and updates user's game from wish to current
+	 */
+	public void updateGameFromWishToCurrentList(int uid, int gid) {
+		String status = "Current";
+		
+		Database.executeSQL("UPDATE " + TABLE_NAME_ACCOUNT
+				+ " SET " + FIELD_STATUS + " = \"" + status + "\" WHERE "
+				+ FIELD_UID + " = " + uid + " AND " + FIELD_GID + " = " + gid);
+		Database.close();
+	}
 }

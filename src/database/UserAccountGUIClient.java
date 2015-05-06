@@ -231,8 +231,11 @@ public class UserAccountGUIClient extends UserAccountGUI implements ActionListen
 				int gid = Integer.parseInt(gidString);
 				
 				Games selectedGame = new Games();
+				selectedGame.updateGameFromWishToCurrentList(currentUserId, gid);
+				/*
 				selectedGame.deleteGameFromList(gid,currentUserId);
 				selectedGame.addGameFromList(gid, currentUserId, status);
+				*/
 				
 				populateUserList("Wish");
 			} catch (RuntimeException ex) {
